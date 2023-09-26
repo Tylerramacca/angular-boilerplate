@@ -11,3 +11,111 @@
     <app-root></app-root>
   </body>
 </html>
+<button id="btn">Clone Card</button>
+  <button id="btnColor">Change Card Color</button>
+  <button id="titleBtn">Change Title</button>
+  <button id="deleteBtn">Delete Last Card</button>
+<div class="cards">
+    <div class="card-container">
+      <div class="card-content">
+        <h2 id="cardTitle">Penn State Lacrosse</h2>
+        <p>We Are!</p>
+        <img src="https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/gopsusports.com/images/2019/4/12/DSC_3685.jpg" alt="Card Image">
+        <div>
+
+            <style>
+        .hidden {
+            display: none;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .card-container {
+            background-color: #001e44;
+            width: 20%;
+            margin: 8px;
+            padding: 10px;
+            border-radius: 12px;
+        }
+        .card-content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+    </style>
+ </head>
+            
+          <button class="details-button">Toggle Description</button>
+        </div>
+      </div>
+      <p class="description hidden" id="cDescription">Come Watch Penn State Lacrosse Dominate!</p>
+    </div>
+  </div>
+
+  <script>
+    const button = document.querySelector("#btn");
+    const colorButton = document.querySelector("#btnColor");
+    const cardContainer = document.querySelector(".card-container");
+    const cardTitle = document.querySelector("#cardTitle");
+    const detailsButton = document.querySelector(".details-button");
+    const description = document.querySelector(".description");
+    const deleteButton = document.querySelector("#deleteBtn");
+    const titleButton = document.querySelector("#titleBtn");
+
+    button.addEventListener("click", function (e) {
+      const cardToClone = document.querySelector(".card-container");
+      const cardCloned = cardToClone.cloneNode(true);
+      
+    cardCloned.querySelector(".details-button").addEventListener("click", function (e) { //59-63 toggle description cloned cards
+    const description = cardCloned.querySelector(".description");
+    if (description) {
+    description.classList.toggle("hidden");
+    }
+});
+      document.querySelector(".cards").appendChild(cardCloned);
+    });
+
+    colorButton.addEventListener("click", function (e) {
+    
+      const randomColor = getRandomColor();
+      cardContainer.style.backgroundColor = randomColor;
+    });
+
+    cardTitle.addEventListener("click", function (e) {
+   
+      cardTitle.textContent = "Something Else";
+    });
+
+    detailsButton.addEventListener("click", function (e) {
+     
+      description.classList.toggle("hidden");
+      
+    });
+
+    deleteButton.addEventListener("click", function (e) {
+      
+      const cards = document.querySelectorAll(".card-container");
+      if (cards.length > 1) {
+        const lastCard = cards[cards.length - 1];
+        lastCard.parentNode.removeChild(lastCard);
+      }
+    });
+
+    titleButton.addEventListener("click", function (e) {
+      
+      
+      cardTitle.textContent = "something else";
+    });
+
+    //Random color generator
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  </script>
